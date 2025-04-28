@@ -1,0 +1,35 @@
+create database galeri 
+create table müşteri(
+müşteriNO int identity (1,1) primary key not null,
+müşteriAdi nvarchar(200),
+müşteriSoyadı nvarchar(200),
+müşteriAdres nvarchar(200),
+müşteriTelefon int,
+)
+create table araçlar(
+araçNo int  primary key not null,
+model nvarchar(130),
+marka nvarchar (50),
+plaka nvarchar(200),
+fiyat int,
+)
+create table Satışlar(
+satışNo int  primary key not null,
+müşteriNO int foreign key (müşteriNO) references müşteri(müşteriNO),
+araçNo int foreign key  (araçNo) references araçlar (araçNo),
+sat_tarih nvarchar(299),
+satış_fiyat int,
+)
+
+--insert into veri 
+insert into araçlar values ('2004','passat','wolkswagen','38 BWG 5656' ,380000)
+insert into araçlar values  ('2022','toyota ','Corolla','34 APK 0001' ,1150000)
+
+
+insert into müşteri values ('barış', 'gilgil','istanbul/kayseri', 6636)
+insert into müşteri values ('aziz', 'gilgil','istanbul', 516636)
+
+select*from araçlar
+insert into Satışlar values (1,1,2004,'25.04.2025',890)
+select*from müşteri
+select*from Satışlar
