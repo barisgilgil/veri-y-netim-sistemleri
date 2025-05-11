@@ -1,0 +1,103 @@
+4 opel araba
+
+select *FROM Musteri
+where Mno IN (
+    select Mno
+    from Satis
+    where Aracno IN (
+        select Aracno
+        from Arac
+        where Marka like '%Opel%'
+
+
+
+
+
+
+5 20000 DEN PAHALI ARABA
+
+SELECT A.Marka, A.Model, S.Sfiyat
+FROM Arac A
+JOIN Satis S ON A.Aracno = S.Aracno
+WHERE A.Fiyat > 20000;
+
+
+
+
+
+
+
+6 AMASYA VE TURHAL
+
+SELECT M.Madi, M.Msoyadi, M.Madres, S.Sfiyat
+FROM Satis S
+JOIN Musteri M ON S.Mno = M.Mno
+WHERE M.Madres LIKE '%Turhal%' OR M.Madres LIKE '%Amasya%'
+ORDER BY S.Sfiyat DESC;
+
+
+
+
+
+
+
+
+7 satış yapılmayan müşteriler
+
+select *FROM Musteri
+where Mno not in 
+select Mno from Satis
+and Mno not in (
+ select Mno from Alim
+);
+
+
+
+
+
+
+
+8---------------
+
+
+SELECT M.Madi, M.Msoyadi, S.Sat_tarih
+FROM Satis S
+JOIN Musteri M ON S.Mno = M.Mno
+WHERE MONTH(S.Sat_tarih) IN (5, 6);
+
+
+
+
+
+
+10*
+
+SELECT TOP 1 A.Marka, S.Sfiyat, M.Madi, M.Msoyadi
+FROM Satis S
+JOIN Arac A ON S.Aracno = A.Aracno
+JOIN Musteri M ON S.Mno = M.Mno
+ORDER BY S.Sfiyat DESC;
+
+
+
+
+
+
+9----
+
+
+SELECT DISTINCT m.Madi, m.Msoyadi, a.Marka
+FROM Satis s
+JOIN Arac a ON s.Aracno = a.Aracno
+JOIN Musteri m ON s.Mno = m.Mno
+WHERE a.Marka IN (
+    SELECT Marka
+    FROM Arac a
+    JOIN Satis s ON a.Aracno = s.Aracno
+    GROUP BY Marka
+    HAVING COUNT(DISTINCT s.Mno) > 1
+);
+
+
+
+
